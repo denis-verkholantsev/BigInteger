@@ -145,6 +145,7 @@ void BigInteger::processing_string(std::string& number) {
 		this->m_bits_of_int32[m_number_of_bits_int32 - 1] = carry;
 	} while (!CheckZero(size_new, bits_new_base));
 }
+
 bool CheckZero(int size_new, unsigned long long* bits_new_base) {
 	for (int i = 0; i <size_new; ++i) {
 		if (*(bits_new_base+i) != 0)
@@ -168,6 +169,7 @@ BigInteger& BigInteger::operator=(const BigInteger& X) {
 	}
 	return *this;
 }
+
 BigInteger& BigInteger::operator=(BigInteger&& X) noexcept {
 	if (this != &X) {
 		delete[] m_bits_of_int32;
@@ -183,9 +185,11 @@ BigInteger& BigInteger::operator=(BigInteger&& X) noexcept {
 bool BigInteger::get_sign() const {
 	return m_sign;
 }
+
 unsigned int BigInteger::get_number_of_bits_int32() const {
 	return m_number_of_bits_int32;
 }
+
 unsigned int BigInteger::operator[](int pos) const {
 	return this->m_bits_of_int32[pos];
 }
@@ -199,9 +203,11 @@ bool operator==(const BigInteger& first, const BigInteger& second) {
 	}
 	return true;
 }
+
 bool operator!=(const BigInteger& first, const BigInteger& second) {
 	return !(first==second);
 }
+
 bool operator<(const BigInteger& first, const BigInteger& second){
 	if (first.m_sign && !second.m_sign) return false;
 	if (!first.m_sign && second.m_sign) return true;
@@ -224,15 +230,19 @@ bool operator<(const BigInteger& first, const BigInteger& second){
 		return false;
 	}
 }
+
 bool operator>(const BigInteger& first, const BigInteger& second) {
 	return second < first;
 }
+
 bool operator>=(const BigInteger& first, const BigInteger& second) {
 	return !(first < second);
 }
+
 bool operator<=(const BigInteger& first, const BigInteger& second) {
 	return (first < second || first==second);
 }
+
 bool cmp_module(const BigInteger& first, const BigInteger& second) {
 	if (first.m_number_of_bits_int32 > second.m_number_of_bits_int32)
 		return true;
@@ -250,6 +260,7 @@ bool cmp_module(const BigInteger& first, const BigInteger& second) {
 const BigInteger BigInteger::operator+() const {
 	return *this;
 }
+
 const BigInteger BigInteger::operator-() const{
 	BigInteger copy = *this;
 	if (copy.m_bits_of_int32[0] == 0 && copy.m_number_of_bits_int32 == 1)
@@ -272,6 +283,7 @@ BigInteger& BigInteger::operator+=(const BigInteger& second) {
 	}
 	return *this;
 }
+
 BigInteger& BigInteger::operator-=(const BigInteger& second) {
 	if (*this >= second && this->m_sign && second.m_sign) {
 		substract_numbers(*this, second);
@@ -297,6 +309,7 @@ void BigInteger::resize(unsigned int size) {
 	for (size_t i = 0; i < size; ++i)
 		m_bits_of_int32[i] = 0;
 }
+
 void BigInteger::resize_down() {
 	--this->m_number_of_bits_int32;
 	unsigned int* copy_bits_of_int32 = new unsigned int[this->m_number_of_bits_int32];
@@ -343,6 +356,7 @@ BigInteger& add_numbers(BigInteger& first, const BigInteger& second) {
 	first = tmp;
 	return first;
 }
+
 BigInteger& substract_numbers(BigInteger& first, const BigInteger& second) {
 	int carry = 0;
 		for (size_t i = 0; i < second.m_number_of_bits_int32 || carry; ++i) {
@@ -360,6 +374,7 @@ const BigInteger operator+(BigInteger first, const BigInteger& second) {
 	first += second;
 	return first;
 }
+
 const BigInteger operator-(BigInteger first, const BigInteger& second) {
 	first -= second;
 	return first;
@@ -369,6 +384,7 @@ const BigInteger& BigInteger::operator++() {
 	*this += 1;
 	return *this;
 }
+
 const BigInteger BigInteger::operator++(int) {
 	BigInteger copy (*this);
 	*this += 1;
