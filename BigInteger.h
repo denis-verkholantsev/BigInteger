@@ -1,0 +1,76 @@
+#pragma once
+
+bool CheckString(std::string);
+bool CheckZero(int, unsigned long long*);
+
+class BigInteger {
+	bool m_sign;
+	unsigned int m_number_of_bits_int32;
+	unsigned int* m_bits_of_int32;
+public:
+	BigInteger();
+	BigInteger(long long);
+	BigInteger(unsigned long long);
+	BigInteger(unsigned int number) : BigInteger((unsigned long long)number) {};
+	BigInteger(unsigned long number) : BigInteger((unsigned long long)number) {};
+	BigInteger(long number) : BigInteger((long long)number) {};
+	BigInteger(int number) : BigInteger((long long)number) {};
+	BigInteger(short int number) : BigInteger((long long)number) {}
+	BigInteger(const BigInteger&);
+	BigInteger(BigInteger&&) noexcept;
+	void processing_string(std::string& number);
+	void processing_short_string(std::string& number);
+	BigInteger(std::string);
+	~BigInteger();
+	BigInteger& operator=(const BigInteger&);
+	BigInteger& operator=(BigInteger&&) noexcept;
+	bool get_sign() const;
+	unsigned int get_number_of_bits_int32() const;
+	unsigned int operator[](int) const;
+	friend bool operator==(const BigInteger&, const BigInteger&);
+	friend bool operator!=(const BigInteger&, const BigInteger&);
+	friend bool operator>(const BigInteger&, const BigInteger&);
+	friend bool operator<(const BigInteger&, const BigInteger&);
+	friend bool operator>=(const BigInteger&, const BigInteger&);
+	friend bool operator<=(const BigInteger&, const BigInteger&);
+	friend bool cmp_abs(const BigInteger&, const BigInteger&);
+	const BigInteger operator+() const;
+	const BigInteger operator-() const;
+	BigInteger& operator+=(const BigInteger&);
+	BigInteger& operator-=(const BigInteger&);
+	friend const BigInteger operator+(BigInteger first, const BigInteger& second);
+	friend const BigInteger operator-(BigInteger first, const BigInteger& second);
+	const BigInteger& operator++();
+	const BigInteger operator++(int);
+	const BigInteger& operator--();
+	const BigInteger operator--(int);
+	void resize(unsigned int);
+	void resize_up();
+	void resize_down();
+	void delete_zeroes();
+	friend BigInteger& add_numbers(BigInteger&, const BigInteger&);
+	friend BigInteger& substract_numbers(BigInteger&, const BigInteger&);
+	friend std::string to_string(const BigInteger& X);
+	friend BigInteger mult_long_by_long(BigInteger&, const BigInteger&);
+	BigInteger& operator*=(const BigInteger&);
+	friend const BigInteger operator*(BigInteger,const BigInteger&);
+	BigInteger operator!() const;
+	BigInteger operator~() const;
+	void additional_code();
+	BigInteger& operator|=(const BigInteger&);
+	friend const BigInteger operator|(BigInteger, const BigInteger&);
+	BigInteger& operator&=(const BigInteger&);
+	friend const BigInteger operator&(BigInteger, const BigInteger&);
+	BigInteger& operator^=(const BigInteger&);
+	friend const BigInteger operator^(BigInteger, const BigInteger&);
+	friend BigInteger div_long_by_short(BigInteger, const BigInteger);
+	BigInteger& operator/=(const BigInteger&);
+	friend const BigInteger operator/(BigInteger, const BigInteger&);
+	friend BigInteger my_abs(BigInteger);
+	BigInteger& operator%=(const BigInteger&);
+	friend BigInteger operator%(BigInteger, const BigInteger&);
+	BigInteger& operator>>=(int step);
+	friend const BigInteger operator>>(BigInteger,int step);
+	BigInteger& operator<<=(int step);
+	friend const BigInteger operator<<(BigInteger, int step);
+};
